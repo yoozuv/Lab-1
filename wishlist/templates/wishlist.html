@@ -1,29 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-light " style="padding-left:0; display:flex;justify-content: space-between;">
+    <div>
+        <p><h5>Nama: {{nama}} </h5>
+            <b></b></p>
+    </div>
 
-<p><h5>Nama: </h5>
-    <b>{{nama}}</b></p>
+        <button class="btn btn-danger" ><a href="{% url 'wishlist:logout' %}" style="text-decoration:none; color:white;">Logout</a></button>
+</nav>
+</div>
 
-<table>
+<table class="table     ">
     <tr>
-    <th>Nama Barang</th>
-    <th>Harga Barang</th>
-    <th>Deskripsi</th>
+    <th scope="col" style="background-color:burlywood;"> Nama Barang</th>
+    <th scope="col" style="background-color:burlywood;">Harga Barang</th>
+    <th scope="col" style="background-color:burlywood;">Deskripsi</th>
     </tr>
     {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
     
 {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
 {% for barang in list_barang %}
     <tr>
-        <th>{{barang.nama_barang}}</th>
-        <th>{{barang.harga_barang}}</th>
-        <th>{{barang.deskripsi}}</th>
+        <th scope="row">{{barang.nama_barang}}</th>
+        <th scope="row">{{barang.harga_barang}}</th>
+        <th scope="row">{{barang.deskripsi}}</th>
     </tr>
 {% endfor %}
 
 </table>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
+<br>
+<br>
+
+<h5 style="text-align:center">Sesi terakhir login: {{ last_login }}</h5>
+
 
 {% endblock content %}
