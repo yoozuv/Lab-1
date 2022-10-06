@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
@@ -9,9 +10,30 @@ from django.contrib.auth import logout
 from wishlist.models import BarangWishlist
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.urls import reverse
+
 # Create your views here.
+def ajax_function(request):
+    context = {
+    'nama': 'Yoozu Abiyyu Verisson',
+    'last_login': request.COOKIES['last_login']
+    }
+    return render(request,'wishlist_ajax.html',context)
+
+def ajax_form(request):
+    if request.method == "POST":
+        nama_barang = request.POST.get("nama_barang")
+        print(nama_barang)
+        harga_barang = request.POST.get("harga_barang")
+        deskripsi = request.POST.get("deskripsi")
+        BarangWishlist.objects.create(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
+        JsonResponse({}, status=200)
+        return redirect("wishlist:ajax_function")
+
+
+    
+
 @login_required(login_url='/wishlist/login/')
 def show_wishlist(request):
     

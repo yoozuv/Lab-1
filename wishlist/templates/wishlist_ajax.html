@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<script>
+    $(document).ready(function(){
+        $.get("{% url 'wishlist:show_json' %}",function(data){
+            $.each(data,function(index,value){
+                $('#wishlist').append(
+                    "<tr><td>" + value.fields.nama_barang + "</td><td>" + value.fields.harga_barang + "</td><td>" + value.fields.deskripsi + "</td></tr>"
+                )
+            })
+        })
+    })
+    
+</script>
+<div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-light " style="padding-left:0; display:flex;justify-content: space-between;">
+    <div>
+        <p><h5>Nama: {{nama}} </h5>
+            <b></b></p>
+    </div>
+
+        <button class="btn btn-danger" ><a href="{% url 'wishlist:logout' %}" style="text-decoration:none; color:white;">Logout</a></button>
+</nav>
+</div>
+
+<table class="table" id="wishlist">
+    <tr>
+    <th scope="col" style="background-color:burlywood;"> Nama Barang</th>
+    <th scope="col" style="background-color:burlywood;">Harga Barang</th>
+    <th scope="col" style="background-color:burlywood;">Deskripsi</th>
+    </tr>
+
+
+</table>
+<br>
+<br>
+
+<h5 style="text-align:center">Sesi terakhir login: {{ last_login }}</h5>
+
+
+{% endblock content %}
