@@ -22,6 +22,7 @@ def ajax_function(request):
     return render(request,'wishlist_ajax.html',context)
 
 def ajax_form(request):
+    
     if request.method == "POST":
         nama_barang = request.POST.get("nama_barang")
         print(nama_barang)
@@ -29,7 +30,7 @@ def ajax_form(request):
         deskripsi = request.POST.get("deskripsi")
         BarangWishlist.objects.create(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
         JsonResponse({}, status=200)
-        return redirect("wishlist:ajax_function")
+        return redirect("wishlist:ajax")
 
 
     
